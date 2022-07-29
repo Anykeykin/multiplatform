@@ -1,10 +1,11 @@
 import 'dart:io';
 
+import 'package:webviewx/webviewx.dart';
+
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:multiplatform/lesson%203/web_platform_webview.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 void main() {
@@ -39,8 +40,6 @@ class _MyHomePageState extends State<MyHomePage> {
   String _htmlText = 'https://flutter.dev/';
   String titleBody = '';
   final _controller = TextEditingController();
-
-  
 
   Future<void> _loadHtmlPage(elem) async {
     final result = await http.get(Uri.parse('${elem}'));
@@ -91,31 +90,26 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
-                // Expanded(
-                //   flex: 6,
-                //   child: kIsWeb
-                //       ? HyperLink(
-                //           link: _htmlText,
-                //         )
-                //       : Platform.operatingSystem == 'android' ||
-                //               Platform.operatingSystem == 'ios'
-                //           ? WebView(
-                //               initialUrl: _htmlText,
-                //             )
-                //           : HyperLink(
-                //               link: _htmlText,
-                //             ),
-                // ),
                 Expanded(
                   flex: 6,
                   child: kIsWeb
-                      ? Text('hello')
+                      ? WebViewX(
+                          initialContent: 'https://flutter.dev/',
+                          initialSourceType: SourceType.url,
+                          height: 500,
+                          width: 500,
+                        )
                       : Platform.operatingSystem == 'android' ||
                               Platform.operatingSystem == 'ios'
                           ? WebView(
                               initialUrl: _htmlText,
                             )
-                          : Text('hello')
+                          : WebViewX(
+                              initialContent: 'https://flutter.dev/',
+                              initialSourceType: SourceType.url,
+                              height: 500,
+                              width: 500,
+                            ),
                 ),
                 Expanded(
                     flex: 2,

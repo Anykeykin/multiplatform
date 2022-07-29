@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -39,7 +40,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> _loadHtmlPage(elem) async {
     final result = await http.get(Uri.parse('${elem}'));
+    BeautifulSoup bs = BeautifulSoup(result.body);
     setState(() {
+      titleBody = bs.h1!.text;
       _htmlText = result.body;
       print('${result}');
     });
@@ -47,6 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    _loadHtmlPage('https://flutter.dev/');
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -59,9 +63,9 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children:[
                   Text(
-                    'Build apps for any screen',
+                    '$titleBody',
                     style: TextStyle(
                       fontSize: 50,
                       fontWeight: FontWeight.bold,
