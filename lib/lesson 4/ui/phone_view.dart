@@ -11,7 +11,7 @@ class PhoneView extends StatefulWidget{
 
 class _PhoneViewState extends State<PhoneView> {
 
-  void _show(BuildContext ctx) {
+  void show(BuildContext ctx) {
     showModalBottomSheet(
         elevation: 10,
         backgroundColor: Colors.blueGrey,
@@ -65,7 +65,7 @@ class _PhoneViewState extends State<PhoneView> {
               child: Container(
                 color: Color(widget.peoples[index]['color']),
                 child: ListTile(
-                  onTap: () => _show(context),
+                  onTap: () => show(context),
                   leading: const CircleAvatar(
                     backgroundImage: AssetImage('asset/eevee.png'),
                   ),
