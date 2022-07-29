@@ -45,7 +45,7 @@ class _DesktopViewState extends State<DesktopView> {
                       showPopover(
                         context: context,
                         transitionDuration: const Duration(milliseconds: 150),
-                        bodyBuilder: (context) => ListItems(),
+                        bodyBuilder: (context) => ListPopover(),
                         onPop: () => print('Popover was popped!'),
                         direction: PopoverDirection.bottom,
                         width: 200,
@@ -53,7 +53,6 @@ class _DesktopViewState extends State<DesktopView> {
                         arrowHeight: 15,
                         arrowWidth: 30,
                       );
-                      print('hello');
                     },
                     child: Container(
                       alignment: Alignment.center,
@@ -82,84 +81,42 @@ class _DesktopViewState extends State<DesktopView> {
   }
 }
 
-class ListItems extends StatelessWidget {
-  const ListItems({Key? key}) : super(key: key);
-
+class ListPopover extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    return Scrollbar(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        child: ListView(
-          padding: const EdgeInsets.all(8),
-          children: [
-            InkWell(
-              onTap: () {
-                Navigator.of(context)
-                  ..pop()
-                  ..push(
-                    MaterialPageRoute<SecondRoute>(
-                      builder: (context) => SecondRoute(),
-                    ),
-                  );
-              },
-              child: Container(
-                height: 50,
-                color: Colors.amber[100],
-                child: const Center(child: Text('Entry A')),
-              ),
-            ),
-            const Divider(),
-            Container(
-              height: 50,
-              color: Colors.amber[200],
-              child: const Center(child: Text('Entry B')),
-            ),
-            const Divider(),
-            Container(
-              height: 50,
-              color: Colors.amber[300],
-              child: const Center(child: Text('Entry C')),
-            ),
-            const Divider(),
-            Container(
-              height: 50,
-              color: Colors.amber[400],
-              child: const Center(child: Text('Entry D')),
-            ),
-            const Divider(),
-            Container(
-              height: 50,
-              color: Colors.amber[500],
-              child: const Center(child: Text('Entry E')),
-            ),
-            const Divider(),
-            Container(
-              height: 50,
-              color: Colors.amber[600],
-              child: const Center(child: Text('Entry F')),
-            ),
-          ],
-        ),
-      ),
+    return Container(
+        width: 300,
+        height: 200,
+        color: Colors.white54,
+        alignment: Alignment.center,
+        child: Padding(
+          padding: EdgeInsets.all(15.0),
+          child: Column(
+              children: const [
+                ListTile(
+                  title: Text('Посмотреть профиль',style: TextStyle(
+                      fontSize: 20
+                  ),
+                  ),
+                  leading: Icon(Icons.mobile_friendly),
+                ),
+                ListTile(
+                  title:Text('Друзья',style: TextStyle(
+                      fontSize: 20
+                  )),
+                  leading: Icon(Icons.person),
+                ),
+                ListTile(
+                  title:Text('Репорт',style: TextStyle(
+                      fontSize: 20
+                  )),
+                  leading: Icon(Icons.report),
+                ),
+              ]
+          ),
+        )
     );
   }
+
 }
 
-class SecondRoute extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Second Route'),
-        automaticallyImplyLeading: false,
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () => Navigator.pop(context),
-          child: const Text('Go back!'),
-        ),
-      ),
-    );
-  }
-}
